@@ -1,0 +1,12 @@
+.DS_Store
+
+### JetBrains template
+.idea
+
+### Scala template
+*.class
+*.log
+
+# sbt specific
+.history
+target/

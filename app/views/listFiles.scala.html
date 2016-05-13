@@ -1,0 +1,40 @@
+@baseAngular {
+    <div class="container" ng-controller="importController">
+
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>File name</th>
+                    <th>File size</th>
+                    <th>Table name</th>
+                    <th>Count</th>
+                    <th>Date</th>
+                    <th>Date start</th>
+                    <th>Date end</th>
+                    <th>Message</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="file in files">
+                <tr>
+                    <td>{{file.name}}</td>
+                    <td>{{file.size}} MB</td>
+                    <td>{{file.table_name}}</td>
+                    <td>{{file.currentCount}}  /  {{file.count}}</td>
+                    <td>{{file.dt}}</td>
+                    <td>{{file.dt_start}}</td>
+                    <td>{{file.dt_end}}</td>
+                    <td>{{file.message}}</td>
+                    <td>
+                        <input type="button"
+                               class="btn .btn-default btn-sm"
+                               value="import"
+                               ng-click="importData(file.name)">
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+}
