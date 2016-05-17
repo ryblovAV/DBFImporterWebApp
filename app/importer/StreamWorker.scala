@@ -2,6 +2,7 @@ package importer
 
 import com.linuxense.javadbf.DBFReader
 import importer.db.{DBLogWriter, DBWriter}
+import importer.reader.source.{DBFSourceReader, SourceReader}
 import play.api.Logger._
 
 import scala.annotation.tailrec
@@ -13,9 +14,9 @@ object StreamWorker {
   val partitionCount = 5000
   val threadCount = 5
 
-  def getRecords(reader: DBFReader): Stream[List[Array[Object]]] = {
+  def getRecords(reader: SourceReader): Stream[List[Array[Object]]] = {
 
-    def take(reader: DBFReader, records: List[Array[Object]] = Nil, cnt: Int = 0): List[Array[Object]] = {
+    def take(reader: SourceReader, records: List[Array[Object]] = Nil, cnt: Int = 0): List[Array[Object]] = {
       if (cnt == partitionCount) records
       else {
         val record = reader.nextRecord
@@ -27,8 +28,8 @@ object StreamWorker {
     take(reader) #:: getRecords(reader)
   }
 
-  def makeStream(dbfReader: DBFReader): Stream[List[Array[Object]]] =
-    getRecords(dbfReader).takeWhile(_.size != 0)
+  def makeStream(reader: SourceReader): Stream[List[Array[Object]]] =
+    getRecords(reader).takeWhile(_.size != 0)
 
   @tailrec
   def makeListFuture(i: Int = 0,
@@ -69,7 +70,7 @@ object StreamWorker {
     }
   }
 
-  def runStream(dbfReader: DBFReader,
+  def runStream(sourceReader: SourceReader,
                 dbWriterBuilder: () => DBWriter,
                 dbfLogWriter: DBLogWriter,
                 futureBuilder: (DBWriter, List[Array[Object]]) => Future[Int]) = {
@@ -78,7 +79,7 @@ object StreamWorker {
       = (0 until threadCount).map(i => (i, dbWriterBuilder())).toMap
 
     runOneStream(
-      s = makeStream(dbfReader),
+      s = makeStream(sourceReader),
       dbWriters = makeDbWriters(dbWriterBuilder),
       dbfLogWriter = dbfLogWriter,
       futureBuilder = futureBuilder)

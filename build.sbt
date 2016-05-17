@@ -17,6 +17,11 @@ libraryDependencies ++= Seq(
 
 libraryDependencies += "org.samba.jcifs" % "jcifs" % "1.3.14-kohsuke-1"
 
+libraryDependencies ++= Seq(
+  "org.apache.poi" % "poi" % "3.13",
+  "org.apache.poi" % "poi-ooxml" % "3.13"
+)
+
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )  
 
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"  

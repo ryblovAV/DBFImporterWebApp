@@ -1,5 +1,7 @@
 package importer
 
+import importer.reader.source.Field
+
 object SQLBuilder {
 
   val journalTableName = "cm_import_journal"

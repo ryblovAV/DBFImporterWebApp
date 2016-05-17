@@ -1,6 +1,7 @@
 package importer.db
 
-import importer.{Field, SQLBuilder}
+import importer.SQLBuilder
+import importer.reader.source.Field
 import org.springframework.jdbc.core.JdbcTemplate
 import play.api.Logger._
 import play.api.db.Database
