@@ -80,9 +80,12 @@ class Application @Inject() (db: Database) extends Controller {
 
               activeTables = activeTables + tableName
 
+              info(s"make source fileName = $fileName, tableName = $tableName")
               makeSource(fileName, tableName, dbfLogWriter)
 
               dbfLogWriter.logMessage("start transfer data")
+
+              info(s"PostDBWriter.transferData fileName = $fileName, tableName = $tableName")
               PostDBWriter.transferData(db = db, fileName = fileName, tableName = tableName)
 
               SmbUtl.removeFile(fileName = fileName)
