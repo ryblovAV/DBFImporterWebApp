@@ -50,7 +50,7 @@ object SmbUtl {
     val downloadFile = new JFile(s"$copyPath/$fileName")
 
     info(s"mkdirs ${downloadFile.getAbsolutePath}")
-    downloadFile.mkdirs()
+    (new JFile(copyPath)).mkdirs()
 
     info("create fileOutputStream")
     val fileOutputStream = new FileOutputStream(downloadFile)
