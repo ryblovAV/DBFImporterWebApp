@@ -1,7 +1,6 @@
 package importer.reader.source
 
 import play.Logger._
-
 import java.io.{FileInputStream, FileOutputStream, File => JFile}
 
 import com.linuxense.javadbf.DBFReader
@@ -48,6 +47,8 @@ object SmbUtl {
   def createCopy(path: String, fileName: String, logCopyProgress: Long => Unit) = {
 
     val downloadFile = new JFile(s"$copyPath/$fileName")
+
+    downloadFile.mkdirs()
 
     val fileOutputStream = new FileOutputStream(downloadFile)
     val remoteFile: SmbFile = getSmbFile(path = s"$path$fileName")
