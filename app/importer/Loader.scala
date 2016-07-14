@@ -16,6 +16,8 @@ object Loader {
 
   def load(db: Database, inputStreamObject: InputStreamObject, tableName: String) = {
 
+    info("start loadData")
+
     val dbfSourceReader = DBFSourceReader(createDBFReader(inputStreamObject))
 
     val fields = dbfSourceReader.getFields

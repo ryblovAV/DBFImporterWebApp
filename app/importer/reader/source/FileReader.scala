@@ -3,6 +3,7 @@ package importer.reader.source
 import java.io.{File => JFile, _}
 
 import jcifs.smb.SmbFile
+import play.Logger._
 
 trait InputStreamObject {
   def name:String
@@ -57,6 +58,7 @@ object FileReader {
   }
 
   def getInputStreamObject(path:String, fileName:String, logCopyProgress: Long => Unit): InputStreamObject = {
+    info(s"getInputStreamObject path = $path, fileName = $fileName")
     if (SmbUtl.checkIsSmb(path)) SmbUtl.getStremObject(path = path,fileName = fileName,logCopyProgress = logCopyProgress)
     else FileUtl.getStreamObject(path = path,fileName = fileName)
   }
