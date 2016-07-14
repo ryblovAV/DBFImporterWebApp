@@ -17,6 +17,9 @@ libraryDependencies ++= Seq(
 
 libraryDependencies += "org.samba.jcifs" % "jcifs" % "1.3.14-kohsuke-1"
 
+libraryDependencies += "com.typesafe.akka" % "akka-actor_2.11" % "2.4.5"
+
+
 libraryDependencies ++= Seq(
   "org.apache.poi" % "poi" % "3.13",
   "org.apache.poi" % "poi-ooxml" % "3.13"

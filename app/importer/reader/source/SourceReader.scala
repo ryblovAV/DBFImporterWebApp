@@ -53,8 +53,6 @@ case class ExcelSourceReader(path: String) extends SourceReader {
     if (rowIterator.hasNext) {
       val row = rowIterator.next()
       val cell = row.getCell(0)
-      println("type = " + cell.getCellType)
-
       calcCount(rowIterator,count+1)
     } else
       count
