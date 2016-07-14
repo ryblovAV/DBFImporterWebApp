@@ -46,13 +46,21 @@ object SmbUtl {
 
   def createCopy(path: String, fileName: String, logCopyProgress: Long => Unit) = {
 
+    info(s"createCopy path=$path, fileName = $fileName")
     val downloadFile = new JFile(s"$copyPath/$fileName")
 
+    info(s"mkdirs ${downloadFile.getAbsolutePath}")
     downloadFile.mkdirs()
 
+    info("create fileOutputStream")
     val fileOutputStream = new FileOutputStream(downloadFile)
+
+    info("create remoteFile")
     val remoteFile: SmbFile = getSmbFile(path = s"$path$fileName")
+
+    info("create fileInputStream")
     val fileInputStream = remoteFile.getInputStream()
+
     val buf = new Array[Byte](16 * 1024 * 1024)
 
     def calcProgress(remoteLengt: Long)(downloadLength: Long)= {
